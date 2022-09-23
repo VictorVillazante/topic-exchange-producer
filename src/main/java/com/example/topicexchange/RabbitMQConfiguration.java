@@ -1,5 +1,6 @@
 package com.example.topicexchange;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -94,18 +95,17 @@ public class RabbitMQConfiguration {
         return BindingBuilder.bind(queueC).to(exchange).with("report.#");
     }
 
-    @Bean
-    ApplicationRunner runner(ConnectionFactory cf) {
-        return args -> cf.createConnection().close();
-    }
+    // @Bean
+    // ApplicationRunner runner(ConnectionFactory cf) {
+    //     return args -> cf.createConnection().close();
+    // }
 
     @Bean
     MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
-
-    @Bean
-    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+    
+    AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;

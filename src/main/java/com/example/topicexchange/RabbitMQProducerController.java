@@ -1,5 +1,6 @@
 package com.example.topicexchange;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class RabbitMQProducerController {
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
-
+	private AmqpTemplate amqpTemplate;
+    
     @Autowired
     private TopicExchange topicExchange;
 
@@ -24,11 +25,11 @@ public class RabbitMQProducerController {
     @PostMapping
     public String  send(@RequestBody Event event){
         if( event.getName().equalsIgnoreCase("Event A")) {
-            rabbitTemplate.convertAndSend(topicExchange.getName(), "report.monthly", event);
+            amqpTemplate.convertAndSend(topicExchange.getName(), "report.monthly", event);
         } else if (event.getName().equalsIgnoreCase("Event B")) {
-            rabbitTemplate.convertAndSend(topicExchange.getName(), "report.retail.weekly", event);
+            amqpTemplate.convertAndSend(topicExchange.getName(), "report.retail.weekly", event);
         } else if (event.getName().equalsIgnoreCase("Event X")) {
-            rabbitTemplate.convertAndSend(topicExchange.getName(), "report.business.weekly", event);
+            amqpTemplate.convertAndSend(topicExchange.getName(), "report.business.weekly", event);
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"unknown event");
         }

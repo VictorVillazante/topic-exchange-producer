@@ -12,4 +12,5 @@ import lombok.ToString;
 public class Event {
     int id;
     String name;
+    int edad;
 }

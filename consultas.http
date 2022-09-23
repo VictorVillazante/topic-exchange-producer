@@ -4,7 +4,8 @@ Content-Type: application/json
 
 {
     "id":1,
-    "name":"Event A"
+    "name":"Event A",
+    "edad":11
 }
 ###Cola B
 
@@ -13,7 +14,8 @@ Content-Type: application/json
 
 {
     "id":1,
-    "name":"Event B"
+    "name":"Event B",
+    "edad":-1
 }
 
 ###Event A y B van a cola C
