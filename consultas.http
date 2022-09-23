@@ -1,0 +1,19 @@
+###Cola A
+POST http://localhost:8080/rabbitmq/event
+Content-Type: application/json
+
+{
+    "id":1,
+    "name":"Event A"
+}
+###Cola B
+
+POST http://localhost:8080/rabbitmq/event
+Content-Type: application/json
+
+{
+    "id":1,
+    "name":"Event B"
+}
+
+###Event A y B van a cola C
